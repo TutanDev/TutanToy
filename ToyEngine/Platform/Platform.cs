@@ -3,16 +3,16 @@ using Silk.NET.Input;
 using Silk.NET.Maths;
 using Silk.NET.Windowing;
 
-namespace ToyEditor.Platform;
+namespace ToyEngine.Platform;
 
-internal class Platform : IDisposable
+public class Platform : IDisposable
 {
 	public IWindow Window { get; private set; }
 	public IInputContext Input { get; private set; }
 
 
-    public Platform()
-    {
+	public Platform()
+	{
 		var options = WindowOptions.Default;
 		options.Size = new Vector2D<int>(800, 800);
 		options.Title = "Playing with Silk.NET";
