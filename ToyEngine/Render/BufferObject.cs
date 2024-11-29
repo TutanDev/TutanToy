@@ -14,15 +14,20 @@ internal class BufferObject<TDataType> : IDisposable where TDataType : unmanaged
 	{
 		(_gl, _bufferType) = (gl, bufferType);
 
+		//Clear existing error code.
+		GLEnum error;
+		do error = _gl.GetError();
+		while (error != GLEnum.NoError);
+
 		ID = _gl.GenBuffer();
 		_gl.BindBuffer(_bufferType, ID);
 
+		GlErrorException.ThrowIfError(gl);
 		fixed (void* d = data)
 		{
 			_gl.BufferData(bufferType, (nuint)(data.Length * sizeof(TDataType)), d, BufferUsageARB.StaticDraw);
 		}
-
-		//_gl.BindBuffer(_bufferType, 0);
+		GlErrorException.ThrowIfError(gl);
 	}
 
 	public void Bind() => _gl.BindBuffer(_bufferType, ID);
