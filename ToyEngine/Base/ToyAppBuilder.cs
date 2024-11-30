@@ -1,11 +1,6 @@
-﻿using System;
-using System.Diagnostics;
-using System.Reflection.PortableExecutable;
-using ToyEngine.API.Renderer;
-using ToyEngine.API.Resources;
+﻿using ToyEngine.API.Resources;
 using ToyEngine.API.Windowing;
 using ToyEngine.Implementation.Windows;
-using ToyEngine.Platform;
 using ToyEngine.Render;
 
 namespace ToyEngine.Base;

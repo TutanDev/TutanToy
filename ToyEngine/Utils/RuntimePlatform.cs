@@ -1,24 +1,23 @@
-﻿
-namespace ToyEngine.Base;
+﻿namespace ToyEngine.Utils;
 
 public record struct RuntimePlatformInfo
 {
-	public FormFactorType FormFactor => IsDesktop ? FormFactorType.Desktop :
-		IsMobile ? FormFactorType.Mobile : IsTV ? FormFactorType.TV : FormFactorType.Unknown;
-	public bool IsDesktop { get; set; }
-	public bool IsMobile { get; set; }
-	public bool IsTV { get; set; }
+    public FormFactorType FormFactor => IsDesktop ? FormFactorType.Desktop :
+        IsMobile ? FormFactorType.Mobile : IsTV ? FormFactorType.TV : FormFactorType.Unknown;
+    public bool IsDesktop { get; set; }
+    public bool IsMobile { get; set; }
+    public bool IsTV { get; set; }
 }
 
 public enum FormFactorType
 {
-	Unknown,
-	Desktop,
-	Mobile,
-	TV
+    Unknown,
+    Desktop,
+    Mobile,
+    TV
 }
 
-public class RuntimePlatform 
+public class RuntimePlatform
 {
     public static RuntimePlatformInfo GetRuntimeInfo() => new()
     {
@@ -37,6 +36,6 @@ public class RuntimePlatform
 
 public enum RendererAPI
 {
-	None,
-	OpenGL,
+    None,
+    OpenGL,
 }

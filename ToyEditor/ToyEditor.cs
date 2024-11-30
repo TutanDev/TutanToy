@@ -24,7 +24,7 @@ public class ToyEditor : ToyApp
 
 	public override void OnRender(double deltaTime)
 	{
-		_renderer.Submit(_toy);
+		//_renderer.Submit(_toy);
 	}
 
 	public override void OnUIRender(double deltaTime)

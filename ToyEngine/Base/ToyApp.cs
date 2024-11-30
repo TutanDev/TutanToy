@@ -11,6 +11,8 @@ public class ToyApp
 
 	protected IRenderer _renderer;
 
+	private bool _running = false;
+
 	public ToyApp() { }
 
 
@@ -23,16 +25,18 @@ public class ToyApp
     {
         _windowing = ToyLocator.Current.GetRequiredService<IWindowingPlatform>();
         _renderer = ToyLocator.Current.GetRequiredService<IRenderer>();
+		//_renderer.Init();
 
-        _window = _windowing.CreateWindow();
-        _window.Load += OnWindowLoad;
-        _window.Update += OnUpdate;
-        _window.Render += Render;
-		_window.FramebufferResize += _renderer.Resize;
-        _window.Closing += OnWindowClose;
+		Run();
+  //      _window = _windowing.CreateWindow();
+  //      _window.Load += OnWindowLoad;
+  //      _window.Update += OnUpdate;
+  //      _window.Render += Render;
+		//_window.FramebufferResize += _renderer.Resize;
+  //      _window.Closing += OnWindowClose;
 
-        _window.Run();
-        _window.Dispose();
+  //      _window.Run();
+  //      _window.Dispose();
     }
 
     public virtual void OnUpdate(double deltaTime) { }
@@ -40,9 +44,28 @@ public class ToyApp
     public virtual void OnRender(double deltaTime) { }
     public virtual void OnUIRender(double deltaTime) { }
 
+	private void Run()
+	{
+		_running = true;
+		var deltaTime = 0.2f;
+
+		while (_running)
+		{
+			OnUpdate(deltaTime);
+
+			OnRender(deltaTime);
+
+			//_renderer.BeginUI(deltaTime);
+			//OnUIRender(deltaTime);
+			//_renderer.EndUI();
+
+			_windowing.OnUpdate();
+		}
+	}
+
 	private void OnWindowLoad()
 	{
-		_renderer.Init(_window, _windowing.CreateInput());
+		//_renderer.Init(_window, _windowing.CreateInput());
 	}
 
 	private void Render(double deltaTime)
@@ -58,6 +81,7 @@ public class ToyApp
 
 	private void OnWindowClose()
 	{
+		_running = false;
 		_renderer.Destroy();
 	}
 }

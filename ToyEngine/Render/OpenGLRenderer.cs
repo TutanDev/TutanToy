@@ -7,7 +7,8 @@ using Silk.NET.OpenGL.Extensions.ImGui;
 using Silk.NET.Windowing;
 using System.Drawing;
 using System.Numerics;
-using ToyEngine.Platform;
+using ToyEngine.Base;
+using ToyEngine.Utils;
 
 namespace ToyEngine.Render;
 

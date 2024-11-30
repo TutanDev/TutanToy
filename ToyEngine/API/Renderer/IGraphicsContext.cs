@@ -1,7 +1,7 @@
 ﻿
 using Silk.NET.GLFW;
 using Silk.NET.Windowing;
-using ToyEngine.Base;
+using ToyEngine.Utils;
 
 namespace ToyEngine.API.Renderer;
 

@@ -1,7 +1,5 @@
 ﻿
 using Silk.NET.GLFW;
-using Silk.NET.OpenGL;
-using Silk.NET.Windowing;
 using ToyEngine.API.Renderer;
 
 namespace ToyEngine.Implementation.OpenGL;
@@ -13,6 +11,7 @@ internal unsafe class GraphicsContext : IGraphicsContext
 
 	public unsafe void Initialize(WindowHandle* window)
 	{
+		_window = window;
 		_glfw = Glfw.GetApi();
 		_glfw.MakeContextCurrent(window);
 	}
