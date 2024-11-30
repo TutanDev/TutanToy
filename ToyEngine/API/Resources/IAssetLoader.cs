@@ -1,4 +1,4 @@
-﻿namespace ToyEngine.Platform.Interfaces;
+﻿namespace ToyEngine.API.Resources;
 
 public interface IAssetLoader
 {

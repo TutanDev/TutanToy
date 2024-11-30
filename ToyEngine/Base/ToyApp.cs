@@ -1,5 +1,5 @@
 ﻿using Silk.NET.Windowing;
-using ToyEngine.Platform.Interfaces;
+using ToyEngine.API.Windowing;
 using ToyEngine.Render;
 
 namespace ToyEngine.Base;
@@ -28,6 +28,7 @@ public class ToyApp
         _window.Load += OnWindowLoad;
         _window.Update += OnUpdate;
         _window.Render += Render;
+		_window.FramebufferResize += _renderer.Resize;
         _window.Closing += OnWindowClose;
 
         _window.Run();

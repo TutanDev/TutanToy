@@ -22,12 +22,10 @@ internal class BufferObject<TDataType> : IDisposable where TDataType : unmanaged
 		ID = _gl.GenBuffer();
 		_gl.BindBuffer(_bufferType, ID);
 
-		GlErrorException.ThrowIfError(gl);
 		fixed (void* d = data)
 		{
 			_gl.BufferData(bufferType, (nuint)(data.Length * sizeof(TDataType)), d, BufferUsageARB.StaticDraw);
 		}
-		GlErrorException.ThrowIfError(gl);
 	}
 
 	public void Bind() => _gl.BindBuffer(_bufferType, ID);

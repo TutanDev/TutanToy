@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Reflection.PortableExecutable;
+using ToyEngine.API.Renderer;
+using ToyEngine.API.Resources;
+using ToyEngine.API.Windowing;
+using ToyEngine.Implementation.Windows;
 using ToyEngine.Platform;
-using ToyEngine.Platform.Interfaces;
 using ToyEngine.Render;
 
 namespace ToyEngine.Base;
@@ -56,14 +59,13 @@ public class ToyAppBuilder
 
     public ToyAppBuilder UsePlatformDetect()
     {
-        if (OperatingSystemExtensions.IsWindows())
+        if (OperatingSystem.IsWindows())
         {
             //AssetLoader.RegisterResUriParsers();
             ToyLocator.Current
-                .Bind<IRuntimePlatform>().ToSingleton<StandardRuntimePlatform>()
                 .Bind<IAssetLoader>().ToConstant(new StandardAssetLoader())
-                .Bind<IWindowingPlatform>().ToConstant(new Win32Platform())
-                .Bind<IRenderer>().ToConstant(new OpenGLRenderer());
+                .Bind<IWindowingPlatform>().ToConstant(new WindowsWindowing())
+                .Bind<Render.IRenderer>().ToConstant(new OpenGLRenderer());
         }
         else
         {

@@ -1,4 +1,4 @@
-﻿namespace ToyEngine.Math;
+﻿namespace ToyEngine.Utils;
 
 public static class MathHelper
 {
