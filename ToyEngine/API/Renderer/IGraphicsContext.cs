@@ -1,6 +1,5 @@
 ﻿
 using Silk.NET.GLFW;
-using Silk.NET.Windowing;
 using ToyEngine.Utils;
 
 namespace ToyEngine.API.Renderer;
@@ -19,14 +18,11 @@ public class GraphicsContext
 
 		switch (RuntimePlatform.GetRendererAPI())
 		{
-			case RendererAPI.None:
+			case Utils.RendererAPI.None:
 				throw new NotImplementedException();
-				break;
-			case RendererAPI.OpenGL:
-				result = new Implementation.OpenGL.GraphicsContext();
+			case Utils.RendererAPI.OpenGL:
+				result = new Implementation.OpenGL.OpenGLContext();
 				result.Initialize(window);
-				break;
-			default:
 				break;
 		}
 

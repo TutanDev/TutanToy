@@ -4,20 +4,20 @@ using ToyEngine.API.Renderer;
 
 namespace ToyEngine.Implementation.OpenGL;
 
-internal class VertexBuffer : IVertexBuffer
+internal class OpenGLVertexBuffer : IVertexBuffer
 {
 	private const BufferTargetARB _type = BufferTargetARB.ArrayBuffer;
 
 	private GL _gl;
 	private uint _handle;
 
-    public VertexBuffer(GL gl)
+    public OpenGLVertexBuffer(GL gl)
     {
 		_gl = gl;
 		_handle = _gl.GenBuffer();
 	}
 
-	public VertexBuffer(GL gl, Span<float> vertices)
+	public OpenGLVertexBuffer(GL gl, Span<float> vertices)
 	{
 		_gl = gl;
 		_handle = _gl.GenBuffer();
@@ -52,14 +52,14 @@ internal class VertexBuffer : IVertexBuffer
 	public void Dispose() => _gl.DeleteBuffer(_handle);
 }
 
-internal class IndexBuffer : IIndexBuffer
+internal class OpenGLIndexBuffer : IIndexBuffer
 {
 	private const BufferTargetARB _type = BufferTargetARB.ElementArrayBuffer;
 
 	private GL _gl;
 	private uint _handle;
 
-    public unsafe IndexBuffer(GL gl, Span<uint> indices)
+    public unsafe OpenGLIndexBuffer(GL gl, Span<uint> indices)
     {
 		_gl = gl;
 		_handle = _gl.GenBuffer();

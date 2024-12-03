@@ -4,7 +4,7 @@ using ToyEngine.API.Renderer;
 
 namespace ToyEngine.Implementation.OpenGL;
 
-internal unsafe class GraphicsContext : IGraphicsContext
+internal unsafe class OpenGLContext : IGraphicsContext
 {
 	WindowHandle* _window;
 	Glfw _glfw;

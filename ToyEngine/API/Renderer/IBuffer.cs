@@ -1,5 +1,4 @@
-﻿using ToyEngine.Implementation;
-using ToyEngine.Implementation.OpenGL;
+﻿using ToyEngine.Implementation.OpenGL;
 using ToyEngine.Utils;
 
 namespace ToyEngine.API.Renderer;
@@ -36,13 +35,10 @@ public static class VertexBuffer
 
 		switch (RuntimePlatform.GetRendererAPI())
 		{
-			case RendererAPI.None:
+			case Utils.RendererAPI.None:
 				throw new NotImplementedException();
-				break;
-			case RendererAPI.OpenGL:
-				result = new Implementation.OpenGL.VertexBuffer(default);
-				break;
-			default:
+			case Utils.RendererAPI.OpenGL:
+				result = new Implementation.OpenGL.OpenGLVertexBuffer(default);
 				break;
 		}
 
@@ -54,13 +50,10 @@ public static class VertexBuffer
 
 		switch (RuntimePlatform.GetRendererAPI())
 		{
-			case RendererAPI.None:
+			case Utils.RendererAPI.None:
 				throw new NotImplementedException();
-				break;
-			case RendererAPI.OpenGL:
-				result = new Implementation.OpenGL.VertexBuffer(default, vertices);
-				break;
-			default:
+			case Utils.RendererAPI.OpenGL:
+				result = new OpenGLVertexBuffer(default, vertices);
 				break;
 		}
 
@@ -76,13 +69,10 @@ public static class IndexBuffer
 
 		switch (RuntimePlatform.GetRendererAPI())
 		{
-			case RendererAPI.None:
+			case Utils.RendererAPI.None:
 				throw new NotImplementedException();
-				break;
-			case RendererAPI.OpenGL:
-				result = new Implementation.OpenGL.IndexBuffer(default, indices);
-				break;
-			default:
+			case Utils.RendererAPI.OpenGL:
+				result = new OpenGLIndexBuffer(default, indices);
 				break;
 		}
 
