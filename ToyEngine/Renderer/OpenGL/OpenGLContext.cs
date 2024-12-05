@@ -9,7 +9,7 @@ internal unsafe class OpenGLContext : IGraphicsContext
 {
     WindowHandle* _window;
     Glfw _glfw;
-    public GL GL;
+    public static GL GL;
 
     public unsafe void Initialize(Glfw glfw, WindowHandle* window)
     {

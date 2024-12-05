@@ -15,7 +15,7 @@ internal class OpenGLShader : IShader
     public OpenGLShader(in string vertexPath, in string fragmentPath)
     {
         // TODO Get GL
-        _gl = default;
+        _gl = OpenGLContext.GL;
         _vertexPath = vertexPath;
         _fragmentPath = fragmentPath;
 

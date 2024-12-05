@@ -20,8 +20,8 @@ public class RendererAPI
 {
     public static IRendererAPI Create(IGraphicsContext context)
     {
-        if (context is OpenGLContext contextGL)
-            return new OpenGLRendererAPI(contextGL.GL);
+        if (context is OpenGLContext)
+            return new OpenGLRendererAPI(OpenGLContext.GL);
 
         return default;
     }
