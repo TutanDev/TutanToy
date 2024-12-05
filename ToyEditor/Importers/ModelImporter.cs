@@ -3,9 +3,10 @@ using System.Numerics;
 using ToyEngine.Render;
 
 using Mesh = ToyEngine.Render.Mesh;
-using Texture = ToyEngine.Render.Texture;
+
 
 using AssimpMesh = Silk.NET.Assimp.Mesh;
+using ToyEngine.Renderer.Interfaces;
 
 namespace ToyEditor.Importers;
 
@@ -14,7 +15,7 @@ internal class ModelImporter
 {
 	private Assimp _assimp;
 
-	private List<Texture> _texturesLoaded = new List<Texture>();
+	private List<ITexture> _texturesLoaded = new List<ITexture>();
 	private List<Mesh> _meshes = new List<Mesh>();
 	public string Directory { get; protected set; } = string.Empty;
 
@@ -52,16 +53,16 @@ internal class ModelImporter
 	private unsafe Mesh ProcessMesh(AssimpMesh* mesh, Scene* scene)
 	{
 		// data to fill
-		List<Vertex> vertices = new List<Vertex>();
-		List<uint> indices = new List<uint>();
-		List<Texture> textures = new List<Texture>();
+		List<Vertex> vertices	= new();
+		List<uint> indices		= new();
+		List<ITexture> textures = new();
 
 		// walk through each of the mesh's vertices
 		for (uint i = 0; i < mesh->MNumVertices; i++)
 		{
-			Vertex vertex = new Vertex();
-			vertex.BoneIds = new int[Vertex.MAX_BONE_INFLUENCE];
-			vertex.Weights = new float[Vertex.MAX_BONE_INFLUENCE];
+			Vertex vertex	= new Vertex();
+			vertex.BoneIds	= new int[Vertex.MAX_BONE_INFLUENCE];
+			vertex.Weights	= new float[Vertex.MAX_BONE_INFLUENCE];
 
 			vertex.Position = mesh->MVertices[i];
 
@@ -127,10 +128,10 @@ internal class ModelImporter
 		return result;
 	}
 
-	private unsafe List<Texture> LoadMaterialTextures(Material* mat, TextureType type, string typeName)
+	private unsafe List<ITexture> LoadMaterialTextures(Material* mat, TextureType type, string typeName)
 	{
 		var textureCount = _assimp.GetMaterialTextureCount(mat, type);
-		List<Texture> textures= new();
+		List<ITexture> textures= new();
 		var importer = new TextureImporter();
 
 		for (uint i = 0; i < textureCount; i++)

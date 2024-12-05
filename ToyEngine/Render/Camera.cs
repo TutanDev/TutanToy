@@ -33,17 +33,17 @@ public class Camera
 	private IInputContext _input;
 	private IKeyboard _primaryKeyboard;
 
-	public Camera(IInputContext input)
+	public Camera()
 	{
-		_input = input;
-		_primaryKeyboard = input.Keyboards.FirstOrDefault();
+		//_input = input;
+		//_primaryKeyboard = input.Keyboards.FirstOrDefault();
 
-		for (int i = 0; i < input.Mice.Count; i++)
-		{
-			//input.Mice[i].Cursor.CursorMode = CursorMode.Raw;
-			input.Mice[i].MouseMove += OnMouseMove;
-			input.Mice[i].Scroll += OnMouseWheel;
-		}
+		//for (int i = 0; i < input.Mice.Count; i++)
+		//{
+		//	//input.Mice[i].Cursor.CursorMode = CursorMode.Raw;
+		//	input.Mice[i].MouseMove += OnMouseMove;
+		//	input.Mice[i].Scroll += OnMouseWheel;
+		//}
 	}
 
 	public Matrix4x4 GetProjectionMatrix(Vector2D<int> size)

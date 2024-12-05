@@ -1,5 +1,5 @@
 ﻿
-namespace ToyEngine.Base;
+namespace ToyEngine.Core;
 
 public class ToyLocator : IDependencyResolver
 {

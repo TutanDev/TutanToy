@@ -28,14 +28,6 @@ public class RuntimePlatform
         IsTV = OperatingSystem.IsTvOS()
     };
 
-    public static RendererAPI GetRendererAPI()
-    {
-        return RendererAPI.OpenGL;
-    }
+    
 }
 
-public enum RendererAPI
-{
-    None,
-    OpenGL,
-}

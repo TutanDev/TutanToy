@@ -1,4 +1,5 @@
 ﻿using Silk.NET.OpenGL;
+using ToyEngine.Renderer.Interfaces;
 
 namespace ToyEngine.Render;
 
@@ -7,9 +8,9 @@ public class Model : IDisposable
 	private readonly GL _gl;
 
 	private readonly List<Mesh> Meshes;
-	private readonly List<Texture> _texturesLoaded;
+	private readonly List<ITexture> _texturesLoaded;
 
-	public Model(List<Mesh> meshes, List<Texture> texturesLoaded, bool gamma = false)
+	public Model(List<Mesh> meshes, List<ITexture> texturesLoaded, bool gamma = false)
 	{
 		Meshes = meshes;
 		_texturesLoaded = texturesLoaded;

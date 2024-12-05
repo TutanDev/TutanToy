@@ -1,8 +1,4 @@
-﻿
-using ToyEditor.Importers;
-using ToyEngine;
-using ToyEngine.Base;
-using ToyEngine.Render;
+﻿using ToyEngine.Core;
 
 namespace ToyEditor;
 

@@ -1,8 +1,8 @@
 ﻿using Silk.NET.Windowing;
-using ToyEngine.API.Windowing;
-using ToyEngine.Render;
+using ToyEngine.Renderer.Interfaces;
+using ToyEngine.Windowing;
 
-namespace ToyEngine.Base;
+namespace ToyEngine.Core;
 
 public class ToyApp
 {
@@ -25,18 +25,8 @@ public class ToyApp
     {
         _windowing = ToyLocator.Current.GetRequiredService<IWindowingPlatform>();
         _renderer = ToyLocator.Current.GetRequiredService<IRenderer>();
-		//_renderer.Init();
 
-		Run();
-  //      _window = _windowing.CreateWindow();
-  //      _window.Load += OnWindowLoad;
-  //      _window.Update += OnUpdate;
-  //      _window.Render += Render;
-		//_window.FramebufferResize += _renderer.Resize;
-  //      _window.Closing += OnWindowClose;
-
-  //      _window.Run();
-  //      _window.Dispose();
+		_renderer.Initialize(_windowing.GetGraphicsContext());
     }
 
     public virtual void OnUpdate(double deltaTime) { }
@@ -44,7 +34,7 @@ public class ToyApp
     public virtual void OnRender(double deltaTime) { }
     public virtual void OnUIRender(double deltaTime) { }
 
-	private void Run()
+	public void Run()
 	{
 		_running = true;
 		var deltaTime = 0.2f;
@@ -52,7 +42,6 @@ public class ToyApp
 		while (_running)
 		{
 			OnUpdate(deltaTime);
-
 			OnRender(deltaTime);
 
 			//_renderer.BeginUI(deltaTime);
@@ -63,25 +52,9 @@ public class ToyApp
 		}
 	}
 
-	private void OnWindowLoad()
-	{
-		//_renderer.Init(_window, _windowing.CreateInput());
-	}
-
-	private void Render(double deltaTime)
-	{
-		_renderer.BeginScene();
-		OnRender(deltaTime);
-		_renderer.EndScene();
-
-		_renderer.BeginUI((float)deltaTime);
-		OnUIRender(deltaTime);
-		_renderer.EndUI();
-	}
-
 	private void OnWindowClose()
 	{
 		_running = false;
-		_renderer.Destroy();
+		_renderer.Dispose();
 	}
 }

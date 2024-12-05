@@ -1,9 +1,9 @@
-﻿using ToyEngine.API.Resources;
-using ToyEngine.API.Windowing;
-using ToyEngine.Implementation.Windows;
-using ToyEngine.Render;
+﻿using ToyEngine.Renderer.Interfaces;
+using ToyEngine.Windowing;
+using ToyEngine.Windowing.Windows;
 
-namespace ToyEngine.Base;
+
+namespace ToyEngine.Core;
 
 public class ToyAppBuilder
 {
@@ -58,9 +58,8 @@ public class ToyAppBuilder
         {
             //AssetLoader.RegisterResUriParsers();
             ToyLocator.Current
-                .Bind<IAssetLoader>().ToConstant(new StandardAssetLoader())
                 .Bind<IWindowingPlatform>().ToConstant(new WindowsWindowing())
-                .Bind<Render.IRenderer>().ToConstant(new OpenGLRenderer());
+                .Bind<IRenderer>().ToConstant(new Renderer.API.Renderer());
         }
         else
         {
@@ -126,5 +125,6 @@ public class ToyAppBuilder
         Instance = _appFactory();
         Instance.RegisterServices();
         Instance.Initialize();
+        Instance.Run();
     }
 }

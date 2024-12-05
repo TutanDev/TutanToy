@@ -1,16 +1,16 @@
 ﻿using Silk.NET.OpenGL;
 using ToyEngine.Render;
-using Shader = ToyEngine.Render.Shader;
-using Texture = ToyEngine.Render.Texture;
+using ToyEngine.Renderer.Interfaces;
 
-namespace ToyEngine.Base
+
+namespace ToyEngine.Core
 {
     public class ToyObject : IDisposable
     {
         public Transform[] Transforms { get; set; }
         public Model Model { get; set; }
-        public Shader Shader { get; set; }
-        public Texture Texture { get; set; }
+        public IShader Shader { get; set; }
+        public ITexture Texture { get; set; }
 
 
         public void SetRenderContext(GL gl)
