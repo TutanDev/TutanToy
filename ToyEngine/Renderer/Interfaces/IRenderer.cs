@@ -7,7 +7,6 @@ public struct SceneData
 {
     public Matrix4x4 ViewMatrix;
     public Matrix4x4 ProjectionMatrix;
-    public Matrix4x4 ViewProjectionMatrix;
 }
 
 public interface IRenderer : IDisposable

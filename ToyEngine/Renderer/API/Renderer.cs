@@ -22,7 +22,6 @@ public class Renderer : IRenderer
     {
         _sceneData.ViewMatrix = camera.GetViewMatrix();
         _sceneData.ProjectionMatrix = camera.GetProjectionMatrix();
-        _sceneData.ViewProjectionMatrix = camera.GetViewProjectionMatrix();
     }
 
     public void Submit(IShader shader, IVertexArray vertexArray, Matrix4x4 transform)

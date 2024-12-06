@@ -1,14 +1,11 @@
-﻿using Silk.NET.Windowing;
+﻿using ToyEngine.Platform.Interfaces;
 using ToyEngine.Renderer.Interfaces;
-using ToyEngine.Windowing;
 
 namespace ToyEngine.Core;
 
 public class ToyApp
 {
 	IWindowingPlatform _windowing;
-	IWindow _window;
-
 	protected IRenderer _renderer;
 
 	private bool _running = false;

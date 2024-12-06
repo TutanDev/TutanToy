@@ -1,7 +1,7 @@
 ﻿using Silk.NET.Assimp;
 using StbImageSharp;
 using ToyEngine.Renderer.Interfaces;
-using Texture = ToyEngine.Renderer.Interfaces.Texture;
+using Texture = ToyEngine.Renderer.API.Texture;
 
 
 namespace ToyEditor.Importers;

@@ -1,6 +1,5 @@
 ﻿
 using System.Drawing;
-using ToyEngine.Renderer.OpenGL;
 
 namespace ToyEngine.Renderer.Interfaces;
 
@@ -16,21 +15,3 @@ public interface IRendererAPI
     void DrawIndexed(IVertexArray vertexArray, int indexcount);
 }
 
-public class RendererAPI
-{
-    public static IRendererAPI Create(IGraphicsContext context)
-    {
-        if (context is OpenGLContext)
-            return new OpenGLRendererAPI(OpenGLContext.GL);
-
-        return default;
-    }
-
-    public static API GetAPI() => API.OpenGL;
-
-    public enum API
-    {
-        None,
-        OpenGL,
-    }
-}

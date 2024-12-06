@@ -1,4 +1,4 @@
-﻿namespace ToyEngine.Utils;
+﻿namespace ToyEngine.Platform.Windows;
 
 public class AssetWatcher
 {

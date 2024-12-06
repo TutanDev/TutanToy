@@ -1,6 +1,6 @@
-﻿using ToyEngine.Renderer.Interfaces;
-using ToyEngine.Windowing;
-using ToyEngine.Windowing.Windows;
+﻿using ToyEngine.Platform.Interfaces;
+using ToyEngine.Platform.Windows;
+using ToyEngine.Renderer.Interfaces;
 
 
 namespace ToyEngine.Core;

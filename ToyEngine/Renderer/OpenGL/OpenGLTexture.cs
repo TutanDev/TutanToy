@@ -5,49 +5,44 @@ namespace ToyEngine.Renderer.OpenGL;
 
 internal class OpenGLTexture : ITexture
 {
-    private uint ID;
-    private GL _gl;
-
     public string Path { get; set; }
+
+    private readonly uint _handle;
+    private readonly GL _gl;
 
     private readonly byte[] _data;
     private readonly int _width;
     private readonly int _height;
 
-    public OpenGLTexture(in string path, in Span<byte> data, int width, int height)
+    public unsafe OpenGLTexture(in string path, in Span<byte> data, int width, int height)
     {
         Path = path;
 
         _data = data.ToArray();
         _width = width;
         _height = height;
-    }
 
-    public unsafe void SetRenderContext(GL gl)
-    {
-        _gl = gl;
+		_gl = OpenGLContext.GL;
 
-        ID = _gl.GenTexture();
-        _gl.BindTexture(TextureTarget.Texture2D, ID);
+		_handle = _gl.GenTexture();
+		_gl.BindTexture(TextureTarget.Texture2D, _handle);
 
-        fixed (byte* ptr = _data)
-        {
-            _gl.TexImage2D(TextureTarget.Texture2D, 0, InternalFormat.Rgba, (uint)_width,
-                    (uint)_height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, ptr);
-        }
+		fixed (byte* ptr = _data)
+		{
+			_gl.TexImage2D(TextureTarget.Texture2D, 0, InternalFormat.Rgba, (uint)_width,
+					(uint)_height, 0, PixelFormat.Rgba, PixelType.UnsignedByte, ptr);
+		}
 
-        SetParameters();
-
-        _gl.BindTexture(TextureTarget.Texture2D, 0);
-    }
+		SetParameters();
+	}
 
     public void Bind(TextureUnit slot = TextureUnit.Texture0)
     {
         _gl.ActiveTexture(slot);
-        _gl.BindTexture(TextureTarget.Texture2D, ID);
+        _gl.BindTexture(TextureTarget.Texture2D, _handle);
     }
 
-    public void Dispose() => _gl.DeleteTexture(ID);
+    public void Dispose() => _gl.DeleteTexture(_handle);
 
 
     // Private

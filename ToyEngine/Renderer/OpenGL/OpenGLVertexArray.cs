@@ -10,10 +10,10 @@ internal class OpenGLVertexArray : IVertexArray
     private readonly GL _gl;
     private readonly uint _handle;
 
-    public OpenGLVertexArray(GL gl)
+    public OpenGLVertexArray()
     {
-        _gl = gl;
-        _handle = _gl.GenVertexArray();
+		_gl = OpenGLContext.GL;
+		_handle = _gl.GenVertexArray();
     }
 
 

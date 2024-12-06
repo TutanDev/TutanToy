@@ -7,16 +7,20 @@ namespace ToyEngine.Core
 {
     public class ToyObject : IDisposable
     {
-        public Transform[] Transforms { get; set; }
+        public Transform Transform { get; set; }
         public Model Model { get; set; }
         public IShader Shader { get; set; }
         public ITexture Texture { get; set; }
 
-
-        public void SetRenderContext(GL gl)
+        public void Draw(ICamera camera)
         {
-            Model.SetRenderContext(gl);
-            Texture.SetRenderContext(gl);
+            Shader.Use();
+			Texture.Bind(TextureUnit.Texture0);
+			Shader.SetInt("uTexture", 0);
+			Shader.SetMat4("uModel", Transform.ViewMatrix);
+            Shader.SetMat4("uView", camera.GetViewMatrix());
+            Shader.SetMat4("uProjection", camera.GetProjectionMatrix());
+            Model.Draw();
         }
 
         public void Dispose()

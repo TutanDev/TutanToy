@@ -11,16 +11,16 @@ internal class OpenGLVertexBuffer : IVertexBuffer
     private readonly GL _gl;
     private readonly uint _handle;
 
-    public OpenGLVertexBuffer(GL gl)
+    public OpenGLVertexBuffer()
     {
-        _gl = gl;
-        _handle = _gl.GenBuffer();
+		_gl = OpenGLContext.GL;
+		_handle = _gl.GenBuffer();
     }
 
-    public OpenGLVertexBuffer(GL gl, Span<float> vertices)
+    public OpenGLVertexBuffer(Span<float> vertices)
     {
-        _gl = gl;
-        _handle = _gl.GenBuffer();
+		_gl = OpenGLContext.GL;
+		_handle = _gl.GenBuffer();
         SetData(vertices);
     }
 
@@ -46,12 +46,12 @@ internal class OpenGLIndexBuffer : IIndexBuffer
 {
     private const BufferTargetARB _type = BufferTargetARB.ElementArrayBuffer;
 
-    private GL _gl;
-    private uint _handle;
+    private readonly GL _gl;
+    private readonly uint _handle;
 
-    public unsafe OpenGLIndexBuffer(GL gl, Span<uint> indices)
+    public unsafe OpenGLIndexBuffer(Span<uint> indices)
     {
-        _gl = gl;
+        _gl = OpenGLContext.GL;
         _handle = _gl.GenBuffer();
         _gl.BindBuffer(_type, _handle);
 

@@ -1,6 +1,8 @@
 ﻿
 using Silk.NET.OpenGL;
+using ToyEngine.Renderer.API;
 using ToyEngine.Renderer.Interfaces;
+using ToyEngine.Renderer.OpenGL;
 
 namespace ToyEngine.Render;
 
@@ -25,20 +27,15 @@ public class Mesh : IDisposable
 		_vertices = vertices;
 		_indices = indices;
 		Textures = textures;
-	}
 
-	public void SetRenderContext(in GL gl)
-	{
-		_gl = gl;
-
+		_gl = OpenGLContext.GL;
 		CreateMesh();
 	}
 
+
 	public unsafe void Draw()
 	{
-		_vao.Bind();
-		//_gl.DrawElements(PrimitiveType.Triangles, vertcount, DrawElementsType.UnsignedInt, null);
-		_gl.DrawArrays(PrimitiveType.Triangles, 0, vertcount);
+		RenderCommand.DrawArrays(_vao);
 	}
 
 	public void Dispose()
@@ -55,7 +52,7 @@ public class Mesh : IDisposable
 		_vbo = VertexBuffer.Create(_vertices);
 		_ebo = IndexBuffer.Create(_indices);
 
-		_vao = Renderer.Interfaces.VertexArray.Create();
+		_vao = Renderer.API.VertexArray.Create();
 		_vao.AddvertexBuffer(_vbo);
 		_vao.SetIndexBuffer(_ebo);
 		_vao.VertexAttributePointer(0, 3, VertexAttribPointerType.Float, stride, 0);

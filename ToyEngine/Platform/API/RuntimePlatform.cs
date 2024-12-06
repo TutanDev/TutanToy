@@ -1,4 +1,4 @@
-﻿namespace ToyEngine.Utils;
+﻿namespace ToyEngine.Platform.API;
 
 public record struct RuntimePlatformInfo
 {
@@ -28,6 +28,6 @@ public class RuntimePlatform
         IsTV = OperatingSystem.IsTvOS()
     };
 
-    
+
 }
 

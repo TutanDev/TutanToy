@@ -15,13 +15,6 @@ public class Model : IDisposable
 		Meshes = meshes;
 		_texturesLoaded = texturesLoaded;
 	}
-	internal void SetRenderContext(GL gl)
-	{
-		foreach (var mesh in Meshes)
-		{
-			mesh.SetRenderContext(gl);
-		}
-	}
 
 	public void Draw()
 	{

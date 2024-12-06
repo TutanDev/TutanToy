@@ -3,11 +3,11 @@
 using System.Diagnostics;
 
 using Silk.NET.GLFW;
+using ToyEngine.Platform.Interfaces;
+using ToyEngine.Renderer.API;
 using ToyEngine.Renderer.Interfaces;
-using ToyEngine.Utils;
-using ToyEngine.Windowing;
 
-namespace ToyEngine.Windowing.Windows;
+namespace ToyEngine.Platform.Windows;
 
 internal unsafe class WindowsWindowing : IWindowingPlatform
 {
@@ -30,7 +30,7 @@ internal unsafe class WindowsWindowing : IWindowingPlatform
 
     public WindowsWindowing()
     {
-        _properties = new WindowProperties("Toy Engine", 1600, 900);
+        _properties = new WindowProperties("Toy Engine", 1600, 1600);
         _glfw = Glfw.GetApi();
         Initialize(_properties);
     }

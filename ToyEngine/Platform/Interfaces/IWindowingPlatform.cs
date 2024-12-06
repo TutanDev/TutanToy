@@ -1,7 +1,7 @@
-﻿using ToyEngine.Renderer.Interfaces;
-using ToyEngine.Windowing.Windows;
+﻿using ToyEngine.Platform.Windows;
+using ToyEngine.Renderer.Interfaces;
 
-namespace ToyEngine.Windowing;
+namespace ToyEngine.Platform.Interfaces;
 
 public record WindowProperties(string Title, int Width, int Height) { }
 
