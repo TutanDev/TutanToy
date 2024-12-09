@@ -1,6 +1,7 @@
 ﻿using System.Numerics;
 using ToyEditor.Importers;
 using ToyEngine.Core;
+using ToyEngine.Events;
 using ToyEngine.Platform.Windows;
 using ToyEngine.Render;
 using ToyEngine.Renderer.API;
@@ -58,5 +59,15 @@ public class ToyEditor : ToyApp
 		_renderer.BeginScene(_camera);
 		_toy.Draw(_camera);
 		_renderer.EndScene();
+	}
+
+	public override void OnEvent(IEvent @event)
+	{
+		base.OnEvent(@event);
+
+		if(@event is WindowResizeEvent e)
+		{
+			_camera.SetAspectRatio(e.Width / e.Height);
+		}
 	}
 }

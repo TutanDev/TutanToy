@@ -1,4 +1,5 @@
-﻿using ToyEngine.Platform.Windows;
+﻿using ToyEngine.Events;
+using ToyEngine.Platform.Windows;
 using ToyEngine.Renderer.Interfaces;
 
 namespace ToyEngine.Platform.Interfaces;
@@ -13,6 +14,8 @@ public interface IWindowingPlatform : IDisposable
     void OnUpdate();
 
     IGraphicsContext GetGraphicsContext();
+
+    void SetEventCallback(Action<IEvent> callback);
 }
 
 public static class WindowingPlatform

@@ -1,4 +1,5 @@
-﻿using ToyEngine.Platform.Interfaces;
+﻿using ToyEngine.Events;
+using ToyEngine.Platform.Interfaces;
 using ToyEngine.Renderer.Interfaces;
 
 namespace ToyEngine.Core;
@@ -21,8 +22,9 @@ public class ToyApp
     public virtual void Initialize()
     {
         _windowing = ToyLocator.Current.GetRequiredService<IWindowingPlatform>();
-        _renderer = ToyLocator.Current.GetRequiredService<IRenderer>();
+		_windowing.SetEventCallback(OnEvent);
 
+        _renderer = ToyLocator.Current.GetRequiredService<IRenderer>();
 		_renderer.Initialize(_windowing.GetGraphicsContext());
     }
 
@@ -30,6 +32,8 @@ public class ToyApp
 
     public virtual void OnRender(double deltaTime) { }
     public virtual void OnUIRender(double deltaTime) { }
+
+
 
 	public void Run()
 	{
@@ -49,9 +53,25 @@ public class ToyApp
 		}
 	}
 
-	private void OnWindowClose()
+	#region Events
+	public virtual void OnEvent(IEvent e)
+	{
+		var dispatcher = new EventDispatcher(e);
+		dispatcher.Dispatch<WindowResizeEvent>(OnWindowResize);
+		dispatcher.Dispatch<WindowCloseEvent>(OnWindowClose);
+	}
+
+	private bool OnWindowClose(WindowCloseEvent @event)
 	{
 		_running = false;
 		_renderer.Dispose();
+		return true;
 	}
+
+	private bool OnWindowResize(WindowResizeEvent @event)
+	{
+		_renderer.Resize(new(@event.Width, @event.Height));
+		return false;
+	}
+	#endregion Events
 }

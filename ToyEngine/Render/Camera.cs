@@ -10,7 +10,7 @@ public class Camera : ICamera
 
 	public Matrix4x4 GetProjectionMatrix() 
 		=> Matrix4x4.CreatePerspectiveFieldOfView(DegreesToRadians(_zoom),
-												  1,
+												  _aspectRatio,
 												  _nearPlaneDistance,
 												  _farPlaneDistance);
 
@@ -24,6 +24,9 @@ public class Camera : ICamera
 	private Vector3 _front = new Vector3(0.0f, 0.0f, -1.0f);
 	private Vector3 _up = Vector3.UnitY;
 	private Vector3 _direction = Vector3.Zero;
+
+	private float _aspectRatio = 1.0f;
+	public void SetAspectRatio(float aspectRatio) => _aspectRatio = aspectRatio;
 
 	// euler Angles
 	private float _yaw = -90f;

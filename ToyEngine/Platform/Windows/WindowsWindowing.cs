@@ -3,6 +3,7 @@
 using System.Diagnostics;
 
 using Silk.NET.GLFW;
+using ToyEngine.Events;
 using ToyEngine.Platform.Interfaces;
 using ToyEngine.Renderer.API;
 using ToyEngine.Renderer.Interfaces;
@@ -24,13 +25,14 @@ internal unsafe class WindowsWindowing : IWindowingPlatform
 
     private IGraphicsContext _graphicsContext;
 
+    private Action<IEvent> _eventcallback;
 
     public int Width => _properties.Width;
     public int Height => _properties.Height;
 
     public WindowsWindowing()
     {
-        _properties = new WindowProperties("Toy Engine", 1600, 1600);
+        _properties = new WindowProperties("Toy Engine", 900, 900);
         _glfw = Glfw.GetApi();
         Initialize(_properties);
     }
@@ -50,7 +52,10 @@ internal unsafe class WindowsWindowing : IWindowingPlatform
 
     public IGraphicsContext GetGraphicsContext() => _graphicsContext;
 
-    public void Dispose()
+	public void SetEventCallback(Action<IEvent> callback) => _eventcallback = callback;
+
+
+	public void Dispose()
     {
         _glfw.DestroyWindow(_handle);
         --s_windowCount;
@@ -108,14 +113,14 @@ internal unsafe class WindowsWindowing : IWindowingPlatform
     {
         _properties = _properties with { Height = height, Width = width };
 
-        // Raise ResizeEvent
-        Debug.WriteLine("WindowSizeCallback");
+        WindowResizeEvent e = new(width, height);
+        _eventcallback?.Invoke(e);
     }
 
     private void WindowCloseCallback(WindowHandle* window)
     {
-        // Raise WindowCloseCallback
-        Debug.WriteLine("WindowCloseCallback");
+        WindowCloseEvent e = new();
+        _eventcallback?.Invoke(e);
     }
 
     private void KeyCallback(WindowHandle* window, Keys key, int scanCode, InputAction action, KeyModifiers mods)
@@ -147,6 +152,6 @@ internal unsafe class WindowsWindowing : IWindowingPlatform
         // Raise CursorPosCallback
         Debug.WriteLine("CursorPosCallback");
     }
-    #endregion Callbacks
+	#endregion Callbacks
 }
 
