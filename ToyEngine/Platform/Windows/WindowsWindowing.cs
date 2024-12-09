@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 using Silk.NET.GLFW;
 using ToyEngine.Events;
+using ToyEngine.Platform.API;
 using ToyEngine.Platform.Interfaces;
 using ToyEngine.Renderer.API;
 using ToyEngine.Renderer.Interfaces;
@@ -94,7 +95,6 @@ internal unsafe class WindowsWindowing : IWindowingPlatform
         _glfw.SetWindowSizeCallback(_handle, WindowSizeCallback);
         _glfw.SetWindowCloseCallback(_handle, WindowCloseCallback);
         _glfw.SetKeyCallback(_handle, KeyCallback);
-        _glfw.SetCharCallback(_handle, CharCallback);
         _glfw.SetMouseButtonCallback(_handle, MouseButtonCallback);
         _glfw.SetScrollCallback(_handle, ScrollCallback);
         _glfw.SetCursorPosCallback(_handle, CursorPosCallback);
@@ -125,33 +125,41 @@ internal unsafe class WindowsWindowing : IWindowingPlatform
 
     private void KeyCallback(WindowHandle* window, Keys key, int scanCode, InputAction action, KeyModifiers mods)
     {
-        // Raise KeyCallback
-        Debug.WriteLine("KeyCallback");
-    }
+        KeyCode keyCode = (KeyCode)(int)key;
+        KeyEvent e = action switch
+		{
+			InputAction.Press => new KeyPressedEvent(keyCode),
+			InputAction.Repeat => new KeyPressedEvent(keyCode, true),
+			InputAction.Release => new KeyReleasedEvent(keyCode),
+			_ => throw new NotImplementedException(),
+		};
 
-    private void CharCallback(WindowHandle* window, uint codepoint)
-    {
-        // Raise CharCallback
-        Debug.WriteLine("CharCallback");
-    }
+		_eventcallback?.Invoke(e);
+	}
 
     private void MouseButtonCallback(WindowHandle* window, MouseButton button, InputAction action, KeyModifiers mods)
     {
-        // Raise MouseButtonCallback
-        Debug.WriteLine("MouseButtonCallback");
-    }
+		MouseCode mouseCode = (MouseCode)(int)button;
+		MouseButtonEvent e = action switch
+		{
+			InputAction.Press => new MouseButtonPressedEvent(mouseCode),
+			InputAction.Release => new MouseButtonReleasedEvent(mouseCode),
+			_ => throw new NotImplementedException(),
+		};
+
+		_eventcallback?.Invoke(e);
+	}
 
     private void ScrollCallback(WindowHandle* window, double offsetX, double offsetY)
     {
-        // Raise ScrollCallback
-        Debug.WriteLine("ScrollCallback");
-    }
+		MouseScrolledEvent e = new((float)offsetX, (float)offsetY);
+		_eventcallback?.Invoke(e);
+	}
 
     private void CursorPosCallback(WindowHandle* window, double x, double y)
     {
-        // Raise CursorPosCallback
-        Debug.WriteLine("CursorPosCallback");
-    }
+		MouseMovedEvent e = new((float)x, (float)y);
+		_eventcallback?.Invoke(e);
+	}
 	#endregion Callbacks
 }
-

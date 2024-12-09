@@ -6,7 +6,7 @@ namespace ToyEngine.Core;
 
 public class ToyApp
 {
-	IWindowingPlatform _windowing;
+	protected IWindowingPlatform _windowing;
 	protected IRenderer _renderer;
 
 	private bool _running = false;

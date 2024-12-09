@@ -13,7 +13,7 @@ namespace ToyEditor;
 public class ToyEditor : ToyApp
 {
 	ToyObject _toy;
-	private Camera _camera;
+	EditorCamera _camera;
 
 	private IShader _shader;
 	private AssetWatcher _shadersWatcher;
@@ -37,7 +37,7 @@ public class ToyEditor : ToyApp
 			Texture = textureImporter.ImportImage("container.jpg"),
 		};
 
-		_camera = new Camera();
+		_camera = new EditorCamera();
 		_shadersWatcher = new(Directory.GetCurrentDirectory(), "*.vert", "*.frag");
 
 		RenderCommand.SetClearColor(System.Drawing.Color.DarkSlateGray);

@@ -26,4 +26,3 @@ public class AssetWatcher
         return false;
     }
 }
-

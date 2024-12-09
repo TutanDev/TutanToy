@@ -1,14 +1,13 @@
 ﻿using System.Numerics;
 using ToyEngine.Renderer.Interfaces;
 
+namespace ToyEditor;
 
-namespace ToyEngine.Render;
-
-public class Camera : ICamera
+public class EditorCamera : ICamera
 {
 	public Matrix4x4 GetViewMatrix() => Matrix4x4.CreateLookAt(_position, _position + _front, _up);
 
-	public Matrix4x4 GetProjectionMatrix() 
+	public Matrix4x4 GetProjectionMatrix()
 		=> Matrix4x4.CreatePerspectiveFieldOfView(DegreesToRadians(_zoom),
 												  _aspectRatio,
 												  _nearPlaneDistance,
